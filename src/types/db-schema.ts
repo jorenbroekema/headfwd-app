@@ -6,7 +6,7 @@ export declare interface Artist {
 export declare interface Song {
   id: number;
   name: string;
-  year: number,
+  year: number;
   artist: Artist['name'];
   shortname: string;
   bpm: number;
@@ -14,4 +14,10 @@ export declare interface Song {
   genre: string;
   spotifyId: string;
   album: string;
+}
+
+export declare interface Playlist {
+  id: number;
+  name: string;
+  songs: { id: Song['id'] }[];
 }

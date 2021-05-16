@@ -8,8 +8,9 @@
 - `test` runs your test suite with Web Test Runner
 - `lint` runs the linter for your project
 
-## Tooling configs
+## Improvements
 
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-
-If you customize the configuration a lot, you can consider moving them to individual files.
+- Make the combobox search behave more reliably
+- Fetch pictures from Spotify API using the spotifyIds, the app looks a bit bland without it
+- Make catalogue which will have a combobox that allows searching for songs, albums and artists
+- Add more unit tests

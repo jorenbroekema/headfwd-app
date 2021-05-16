@@ -3,19 +3,16 @@ import { html, fixture, expect } from '@open-wc/testing';
 import '../src/components/HeadfwdApp.js';
 
 describe('HeadfwPlaylists', () => {
-  it('fetches artist one', async () => {
+  it('correctly renders the app shell', async () => {
     const el = await fixture(html`<headfwd-app></headfwd-app>`);
-    await el.fetchArtistOneComplete;
-    await el.updateComplete;
+
     await expect(el).shadowDom.to.equal(`
       <div class="nav">
         <a href="/">Home</a>
-        <a href="/foo">Foo</a>
-        <a href="/bar">bar</a>
+        <a href="/catalogue">Catalogue</a>
       </div>
-      <p>3 Doors Down</p>
       <main>
-        <headfwd-foo></headfwd-foo>
+        <headfwd-home></headfwd-home>
       </main>
     `);
   });

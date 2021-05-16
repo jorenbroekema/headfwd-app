@@ -1,15 +1,16 @@
 import { LitElement, html, css } from 'lit';
 import page from 'page';
 
-import './HeadfwdBar.js';
-import './HeadfwdFoo.js';
+import './HeadfwdHome.js';
+import './HeadfwdCatalogue.js';
+import './HeadfwdPlaylist.js';
 
 /** @typedef {import('../types/db-schema').Artist} Artist */
 
 export class HeadfwdApp extends LitElement {
   static get properties() {
     return {
-      artistOne: { attribute: false },
+      pageTemplate: { attribute: false },
     };
   }
 
@@ -18,33 +19,44 @@ export class HeadfwdApp extends LitElement {
       :host {
         text-align: center;
       }
+
+      .nav {
+        margin-top: 30px;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+      }
+
+      .nav-item {
+        color: var(--text-color);
+        margin: 0 20px;
+        text-decoration: none;
+      }
     `;
   }
 
   constructor() {
     super();
-    this.pageTemplate = html`<headfwd-foo></headfwd-foo>`;
-    /** @type {Artist | undefined} */
-    this.artistOne = undefined;
+    this.pageTemplate = html`<headfwd-home></headfwd-home>`;
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.setupRouting();
-    this.fetchArtistOne();
   }
 
   setupRouting() {
     page('/', () => {
-      this.pageTemplate = html`<headfwd-foo></headfwd-foo>`;
+      this.pageTemplate = html`<headfwd-home></headfwd-home>`;
     });
 
-    page('/foo', () => {
-      this.pageTemplate = html`<headfwd-foo></headfwd-foo>`;
+    page('/playlist/:name', (ctx) => {
+      this.pageTemplate = html`<headfwd-playlist
+        .name=${ctx.params.name}
+      ></headfwd-playlist>`;
     });
 
-    page('/bar', () => {
-      this.pageTemplate = html`<headfwd-bar></headfwd-bar>`;
+    page('/catalogue', () => {
+      this.pageTemplate = html`<headfwd-catalogue></headfwd-catalogue>`;
     });
 
     page();
@@ -57,28 +69,11 @@ export class HeadfwdApp extends LitElement {
   render() {
     return html`
       <div class="nav">
-        <a href="/">Home</a>
-        <a href="/foo">Foo</a>
-        <a href="/bar">bar</a>
+        <a class="nav-item" href="/">Home</a>
+        <a class="nav-item" href="/catalogue">Catalogue</a>
       </div>
-      <p>${this.artistOne ? this.artistOne.name : 'loading..'}</p>
       <main>${this.pageTemplate}</main>
     `;
-  }
-
-  async fetchArtistOne() {
-    this.fetchArtistOneComplete = new Promise((resolve) => {
-      this.fetchArtistOneCompleteResolve = resolve;
-    });
-
-    const result = await fetch('/api/artists/1');
-    if (result.status === 200) {
-      this.artistOne = await result.json();
-    } else {
-      throw new Error('Could not fetch artist one');
-    }
-
-    this.fetchArtistOneCompleteResolve();
   }
 }
 customElements.define('headfwd-app', HeadfwdApp);
