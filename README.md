@@ -1,13 +1,15 @@
-# HeadFWD assessment
+# HeadFWD
 
-We hebben voor jou een eigen groep aangemaakt op onze GitLab, hiervoor heb je een uitnodiging ontvangen. In deze groep kan je doen en laten wat je wilt, maar het is de bedoeling dat je hier de oplossingen deelt voor je opdrachten! Hier onder vind je alles wat je nodig hebt om aan de slag te gaan. Succes!!!
+## Scripts
 
-## Frontend test
+- `start` runs your app for development, reloading on file changes
+- `start:build` runs your app after it has been built using the build command
+- `build` builds your app and outputs it in your `dist` directory
+- `test` runs your test suite with Web Test Runner
+- `lint` runs the linter for your project
 
-De opdracht vind je op deze link
+## Tooling configs
 
-https://gitlab.com/Headfwd/assessments/paul-gerarts/assessment-information/-/blob/master/frontend_assessment.pdf
+For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
 
-De database vind je hier
-
-https://gitlab.com/Headfwd/assessments/paul-gerarts/assessment-information/-/blob/master/db.json
+If you customize the configuration a lot, you can consider moving them to individual files.
